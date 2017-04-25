@@ -11,11 +11,11 @@ public class Controller {
     private static Populacao uniao;
     private static Populacao populacao;
     private static Populacao filhos;
-    private static int qntIndividuos = 10;
-    private static int qntGeracoes = 200;
+    private static int qntIndividuos = 50;
+    private static int qntGeracoes = 2000;
     private static double[] scores;
     public static double melhorFitness = 0;
-    public static int taxaMutacao = 99999;
+    public static int taxaMutacao = 5;
 
 
     public static void iniciarExecucao(){
@@ -24,7 +24,7 @@ public class Controller {
         while(++i < qntGeracoes){
             filhos = Operadores.mutaPopulacao(populacao);
             uniao = Operadores.retornaUniao(populacao, filhos);
-            populacao = Fitness.retornaMelhores(uniao);
+            populacao = Fitness.retornaCampeoesTorneio(uniao);
             scores = Fitness.avaliaPopulacao(populacao);
             imprimeResultados();
             verificaMelhorFitness();

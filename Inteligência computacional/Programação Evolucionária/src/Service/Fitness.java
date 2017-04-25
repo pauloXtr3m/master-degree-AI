@@ -14,28 +14,50 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class Fitness {
 
-    public static Populacao retornaMelhores(Populacao populacao){
+    public static Populacao retornaCampeoesTorneio(Populacao populacao){
         double[] scores = avaliaPopulacao(populacao);
         int qntPais = scores.length/2;
         double[] melhores = new double[qntPais];
-        int[] indices = new int[qntPais];
+        int[] vitorias = new int[scores.length];
 
         CopyOnWriteArrayList<Individuo> individuos = populacao.getIndividuos();
         CopyOnWriteArrayList<Individuo> melhoresPais = new CopyOnWriteArrayList<>();
 
+        //seleção por torneio
         for(int i = 0; i < scores.length; i++){
 
+            //inicialmente preenche o vetor, se está
+            //com alguma posição vazia
             if(i < qntPais){
-
                 melhores[i] = scores[i];
-                indices[i] = i;
+                vitorias[i]++;
 
             } else{
                 for(int j = 0; j < qntPais; j++){
+                    int rand = (int)(Math.random() * scores.length);
+                    if(scores[rand]>melhores[j]){
+                        melhores[j] = scores[rand];
+                        vitorias[rand]++;
+                        break;
+                    }
+                }
+            }
 
-                    if(scores[i]>melhores[j]){
-                        melhores[j] = scores[i];
-                        indices[j] = i;
+        }
+        int[] maisVitorias = new int[qntPais];
+        int[] indicesEscolhidos = new int[qntPais];
+
+        //Verifica qual individuo tem mais vitorias
+        // e guarda seus indices
+        for(int i = 0; i < scores.length; i++){
+
+            if(i < qntPais){
+                maisVitorias[i] = vitorias[i];
+            }else{
+                for(int j = 0; j < qntPais; j++){
+                    if(maisVitorias[j]<vitorias[i]){
+                        maisVitorias[j] = vitorias[i];
+                        indicesEscolhidos[j] = i;
                         break;
                     }
                 }
@@ -43,8 +65,8 @@ public class Fitness {
 
         }
 
-        for(int i = 0 ; i < indices.length; i++){
-            melhoresPais.add(individuos.get(indices[i]));
+        for(int i = 0 ; i < maisVitorias.length; i++){
+            melhoresPais.add(individuos.get(maisVitorias[i]));
         }
 
         return new Populacao(melhoresPais);
@@ -76,8 +98,9 @@ public class Fitness {
         double y = individuo.getY();
         double score = 0;
         double powxy = Math.pow(x,2) + Math.pow(y,2);
-        score = (0.5 + (Math.sin(Math.sqrt(powxy)) - 0.5)) / (Math.pow((1 + (0.001 * (powxy))), 2));
+        score = (0.5 + Math.pow(Math.sin(Math.sqrt(powxy)),2) - 0.5) / (Math.pow((1 + (0.001 * (powxy))), 2));
 
         return score;
     }
+
 }

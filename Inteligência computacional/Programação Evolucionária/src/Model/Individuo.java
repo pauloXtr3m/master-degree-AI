@@ -12,8 +12,8 @@ public class Individuo {
         int sinal1 = (int)randSinal();
         int sinal2 = (int)randSinal();
 
-        this.x = (long)(Math.random()*Long.MAX_VALUE);
-        this.y = (long)(Math.random()*Long.MAX_VALUE);
+        this.x = (long)(Math.random()*100);
+        this.y = (long)(Math.random()*100);
 
         this.x = converteSinal(x, sinal1);
         this.y = converteSinal(y, sinal2);
