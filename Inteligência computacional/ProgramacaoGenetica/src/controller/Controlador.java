@@ -1,12 +1,14 @@
+package controller;
+
 import model.Populacao;
 
 public class Controlador {
 
 	private Populacao populacao;
 
-	private int geracoes;
+	public static final int PROFUNDIDADE = 2;
 
-	private Populacao populacao;
+	private int geracoes;
 
 	public Populacao iniciaPopulacao() {
 		return null;

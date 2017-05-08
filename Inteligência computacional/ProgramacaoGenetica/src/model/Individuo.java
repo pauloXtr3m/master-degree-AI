@@ -1,27 +1,35 @@
 package model;
 
-import sun.reflect.generics.tree.Tree;
+
+import servicos.CromossomoGenerator;
+import controller.Controlador;
+
 
 public class Individuo {
 
-	private Tree cromossomo;
+	private Arvore cromossomo;
 
 	private Populacao populacao;
 
+	private String arvoreString;
+
+
 	public Individuo() {
-
+		CromossomoGenerator generator = new CromossomoGenerator();
+		this.arvoreString = generator.randomFormula(Controlador.PROFUNDIDADE);
+		this.cromossomo = criarCromossomo(arvoreString);
 	}
 
-	public Individuo(Tree cromossomo) {
-
+	public Individuo(Arvore cromossomo) {
+        this.cromossomo = cromossomo;
 	}
 
-	public Tree criarCromossomo() {
+	public Arvore criarCromossomo(String arvoreString) {
 		return null;
 	}
 
-	public Tree getCromossomo() {
-		return null;
+	public Arvore getCromossomo() {
+		return this.cromossomo;
 	}
 
 }
