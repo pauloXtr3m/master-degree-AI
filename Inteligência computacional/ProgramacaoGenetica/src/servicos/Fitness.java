@@ -1,5 +1,6 @@
 package servicos;
 
+import model.Arvore;
 import model.Populacao;
 import model.Individuo;
 
@@ -16,6 +17,7 @@ public class Fitness {
 	}
 
 	public void calculaFitnessIndividuo(Individuo individuo) {
+		Arvore arvore = new Arvore();
 
 	}
 

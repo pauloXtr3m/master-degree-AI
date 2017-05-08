@@ -10,8 +10,8 @@ public class Populacao {
 
 	}
 
-	public void Populacao(Populacao populacao) {
-
+	public void Populacao(CopyOnWriteArrayList<Individuo> populacao) {
+		this.individuos = populacao;
 	}
 
 	public void addIndividuo(Individuo individuo) {

@@ -146,7 +146,7 @@ public class Arvore {
 
     }
 
-    public No findNo(int key) {
+    public No procuraNo(int key) {
 
         // Start at the top of the tree
 
