@@ -26,4 +26,7 @@ public class Populacao {
 		return this.individuos.get(indice);
 	}
 
+	public CopyOnWriteArrayList<Individuo> getIndividuos() {
+		return individuos;
+	}
 }

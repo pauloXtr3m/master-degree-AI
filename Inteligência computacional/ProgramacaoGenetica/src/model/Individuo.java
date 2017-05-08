@@ -21,11 +21,12 @@ public class Individuo {
 	}
 
 	public Individuo(Arvore cromossomo) {
-        this.cromossomo = cromossomo;
+
+		this.cromossomo = cromossomo;
 	}
 
 	public Arvore criarCromossomo(String arvoreString) {
-		return null;
+		return new Arvore(arvoreString);
 	}
 
 	public Arvore getCromossomo() {

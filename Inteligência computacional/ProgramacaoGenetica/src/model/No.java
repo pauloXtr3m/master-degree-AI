@@ -7,7 +7,7 @@ public class No {
 
     int key;
 
-    String name;
+    private String name;
 
     No filhoEsquerdo;
 
