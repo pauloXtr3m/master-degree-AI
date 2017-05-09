@@ -5,12 +5,13 @@ import model.Individuo;
 
 public class Recombinacao extends Operacao {
 
-	protected Populacao realizaOperacao(Populacao populacao) {
+	public Populacao realizaOperacao(Populacao populacao) {
 		return null;
 	}
 
-	protected Individuo realizaOperacaoIndividuo(Individuo individuo) {
+	public Individuo realizaOperacaoIndividuo(Individuo individuo) {
 		return null;
 	}
+
 
 }

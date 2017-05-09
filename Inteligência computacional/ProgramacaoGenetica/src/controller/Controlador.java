@@ -1,6 +1,8 @@
 package controller;
 
+import com.sun.org.apache.bcel.internal.generic.POP;
 import model.Populacao;
+import servicos.*;
 
 public class Controlador {
 
@@ -14,26 +16,29 @@ public class Controlador {
 
 
 
-	public void iniciaPopulacao() {
+	private void iniciaPopulacao() {
 		this.populacao = new Populacao(tamPopulacao);
 	}
 
 	public void iniciaExecucao() {
 		iniciaPopulacao();
 		int i = 0;
+		Operacao operacao;
 		while(++i < geracoes){
 
 			int rand = (int)(Math.random()*100);
 
-			if((rand > 0) && (rand < 90)){
+			if((rand > 0) && (rand < 98)){
 				//cruzamento
-
-			}else if((rand >= 90) && (rand < 98)){
-				//recombinação
+				Fitness fitness = new Fitness();
+				Populacao melhoresPais = fitness.retornaPais(this.populacao);
+				operacao = new Cruzamento();
+				this.populacao = operacao.realizaOperacao(melhoresPais);
 
 			} else {
 				//mutação
-
+				operacao = new Mutacao();
+				this.populacao = operacao.realizaOperacao(this.populacao);
 			}
 		}
 	}
