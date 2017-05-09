@@ -3,6 +3,7 @@ package servicos;
 import model.Populacao;
 import model.Individuo;
 
+import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Cruzamento extends Operacao {
@@ -29,11 +30,28 @@ public class Cruzamento extends Operacao {
 		return new Populacao(novosIndividuos);
 	}
 
-	public Individuo realizaOperacaoIndividuo(Individuo individuo) {
-		return null;
-	}
 
 	public Individuo[] realizaOperacaoCruzamento(Individuo[] pais) {
+
+		for(Individuo i: pais){
+
+			TreeMap cromossomo = i.getCromossomo();
+
+			boolean noErrado = true;
+
+			while(noErrado){
+				int escolheNo = (int)Math.random()*cromossomo.size();
+
+				if(cromossomo.get(escolheNo).equals('+')
+						|| cromossomo.get(escolheNo).equals('-')
+						|| cromossomo.get(escolheNo).equals('/')
+						|| cromossomo.get(escolheNo).equals('*')){
+
+					// falta guardar nó escolhido e sai do while
+					noErrado = false;
+				}
+			}
+		}
 		return null;
 	}
 

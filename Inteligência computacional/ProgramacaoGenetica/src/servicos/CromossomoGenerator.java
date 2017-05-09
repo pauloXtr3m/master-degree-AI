@@ -2,9 +2,7 @@ package servicos;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
-/**
- * Created by paulo on 08/05/17.
- */
+
 public class CromossomoGenerator {
     String[] all;
     String[] funcoes;
@@ -21,6 +19,7 @@ public class CromossomoGenerator {
     public CopyOnWriteArrayList<String> randomFormula(int maxProfundidade){
         CopyOnWriteArrayList<String> formula = new CopyOnWriteArrayList<String>();
         int profundidade = 0;
+
         if(maxProfundidade>1){
                 formula.add("(");
                 String nextFuncao = randomNext(this.funcoes);
@@ -72,16 +71,16 @@ public class CromossomoGenerator {
     }
     private void inicializarNext(){
         next = new String[3];
-        next[1] = Integer.toString((int)(Math.random()*10));
-        next[2] = "a";
-        next[3] = "b";
+        next[0] = Integer.toString((int)(Math.random()*10));
+        next[1] = "a";
+        next[2] = "b";
     }
 
     public String randomNext(String[] randVetor){
 
         int rand = (int)(Math.random()*randVetor.length);
 
-        return this.next[rand];
+        return randVetor[rand];
     }
 
 

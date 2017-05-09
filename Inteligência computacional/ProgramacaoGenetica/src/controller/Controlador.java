@@ -29,14 +29,16 @@ public class Controlador {
 			int rand = (int)(Math.random()*100);
 
 			if((rand > 0) && (rand < 98)){
-				//cruzamento
+				//CRUZAMENTO
+
 				Fitness fitness = new Fitness();
 				Populacao melhoresPais = fitness.retornaPais(this.populacao);
 				operacao = new Cruzamento();
 				this.populacao = operacao.realizaOperacao(melhoresPais);
 
 			} else {
-				//mutação
+				//MUTAÇÃO
+
 				operacao = new Mutacao();
 				this.populacao = operacao.realizaOperacao(this.populacao);
 			}
