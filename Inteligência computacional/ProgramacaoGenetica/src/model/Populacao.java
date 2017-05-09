@@ -6,8 +6,11 @@ public class Populacao {
 
 	private CopyOnWriteArrayList<Individuo> individuos;
 
-	public Populacao() {
-
+	public Populacao(int tamPopulacao) {
+		individuos = new CopyOnWriteArrayList<Individuo>();
+		for(int i = 0 ; i < tamPopulacao; i++){
+			individuos.add(new Individuo());
+		}
 	}
 
 	public void Populacao(CopyOnWriteArrayList<Individuo> populacao) {

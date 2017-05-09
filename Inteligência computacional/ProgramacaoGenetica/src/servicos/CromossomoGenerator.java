@@ -1,5 +1,7 @@
 package servicos;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * Created by paulo on 08/05/17.
  */
@@ -16,28 +18,31 @@ public class CromossomoGenerator {
         inicializarNext();
     }
 
-    public String randomFormula(int maxProfundidade){
-        StringBuilder formula = new StringBuilder("");
+    public CopyOnWriteArrayList<String> randomFormula(int maxProfundidade){
+        CopyOnWriteArrayList<String> formula = new CopyOnWriteArrayList<String>();
         int profundidade = 0;
         if(maxProfundidade>1){
-                formula.append("(");
+                formula.add("(");
                 String nextFuncao = randomNext(this.funcoes);
-                formula.append(nextFuncao);
+
+                formula.add(nextFuncao);
+
                 if(nextFuncao.equals("sin")|| nextFuncao.equals("cos")||nextFuncao.equals("sqrt")){
-                    formula.append(randomFormula(maxProfundidade-1));
-                    formula.append(")");
+                    formula.addAll(randomFormula(maxProfundidade-1));
+
 
                 } else{
-                    formula.append(randomFormula(maxProfundidade-1));
-                    formula.append(randomFormula(maxProfundidade-1));
-                    formula.append(")");
+                    formula.addAll(randomFormula(maxProfundidade-1));
+                    formula.addAll(randomFormula(maxProfundidade-1));
+
                 }
+                formula.add(")");
 
         } else if(maxProfundidade == 1){
-            formula.append(randomNext(this.next));
+            formula.add(randomNext(this.next));
         }
 
-        return formula.toString();
+        return formula;
     }
     private void inicializarAll(){
         all = new String[12];

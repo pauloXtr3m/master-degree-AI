@@ -4,14 +4,17 @@ package model;
 import servicos.CromossomoGenerator;
 import controller.Controlador;
 
+import java.util.TreeMap;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 
 public class Individuo {
 
-	private Arvore cromossomo;
+	private TreeMap<Integer,String> cromossomo;
 
 	private Populacao populacao;
 
-	private String arvoreString;
+	private CopyOnWriteArrayList arvoreString;
 
 
 	public Individuo() {
@@ -20,16 +23,25 @@ public class Individuo {
 		this.cromossomo = criarCromossomo(arvoreString);
 	}
 
-	public Individuo(Arvore cromossomo) {
+	public Individuo(TreeMap<Integer,String> cromossomo) {
 
 		this.cromossomo = cromossomo;
 	}
 
-	public Arvore criarCromossomo(String arvoreString) {
-		return new Arvore(arvoreString);
+	public TreeMap<Integer,String> criarCromossomo(CopyOnWriteArrayList arvoreString) {
+
+		TreeMap<Integer,String> novoCromossomo = new TreeMap<Integer,String>();
+
+		for(int i = 0; i < arvoreString.size(); i++){
+			if(arvoreString.get(i) != "(" || arvoreString.get(i) != ")"){
+				String no = (String)arvoreString.get(i);
+				novoCromossomo.put(i, no);
+			}
+		}
+		return novoCromossomo;
 	}
 
-	public Arvore getCromossomo() {
+	public TreeMap<Integer,String> getCromossomo() {
 		return this.cromossomo;
 	}
 
