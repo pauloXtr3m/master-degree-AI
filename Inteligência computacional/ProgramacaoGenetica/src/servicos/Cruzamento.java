@@ -33,9 +33,9 @@ public class Cruzamento extends Operacao {
 
 	public Individuo[] realizaOperacaoCruzamento(Individuo[] pais) {
 
-		for(Individuo i: pais){
+		for(int i = 0; i < pais.length; i++){
 
-			TreeMap cromossomo = i.getCromossomo();
+			TreeMap cromossomo = pais[i].getCromossomo();
 
 			boolean noErrado = true;
 

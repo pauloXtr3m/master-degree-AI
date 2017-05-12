@@ -38,7 +38,6 @@ public class Individuo {
 				novoCromossomo.put(i, no);
 			}
 		}
-		System.out.println(cromossomo.values());
 
 		return novoCromossomo;
 	}

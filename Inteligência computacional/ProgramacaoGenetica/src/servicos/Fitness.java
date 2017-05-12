@@ -1,5 +1,7 @@
 package servicos;
 
+import bsh.EvalError;
+import bsh.Interpreter;
 import model.Populacao;
 import model.Individuo;
 import sun.reflect.generics.tree.Tree;
@@ -58,8 +60,16 @@ public class Fitness {
 		//falta formatar expressao para float
 
 		//float fitness = Float.parseFloat("2+5");
+        float fitness = 0;
+		try{
+            Interpreter interpreter = new Interpreter();
+            interpreter.eval("((5+6)*(3/2))");
 
-		float fitness = 0;
+            fitness = (float)interpreter.get("result");
+        }catch (EvalError e){
+		    fitness = 0;
+        }
+        
 
 		return fitness;
 	}
