@@ -41,6 +41,11 @@ public class CromossomoGenerator {
             formula.add(randomNext(this.next));
         }
 
+        for(String str: formula){
+            System.out.print(formula);
+        }
+        System.out.println("\nFinalizou\n");
+
         return formula;
     }
     private void inicializarAll(){

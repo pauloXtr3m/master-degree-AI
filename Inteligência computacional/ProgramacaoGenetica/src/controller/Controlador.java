@@ -8,7 +8,7 @@ public class Controlador {
 
 	private Populacao populacao;
 
-	public static final int PROFUNDIDADE = 2;
+	public static final int PROFUNDIDADE = 4;
 
 	private int geracoes = 200;
 

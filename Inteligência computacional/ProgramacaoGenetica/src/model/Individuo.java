@@ -33,11 +33,13 @@ public class Individuo {
 		TreeMap<Integer,String> novoCromossomo = new TreeMap<Integer,String>();
 
 		for(int i = 0; i < arvoreString.size(); i++){
-			if(arvoreString.get(i) != "(" && arvoreString.get(i) != ")"){
+			if(!arvoreString.get(i).equals("(") && !arvoreString.get(i).equals(")")){
 				String no = (String)arvoreString.get(i);
 				novoCromossomo.put(i, no);
 			}
 		}
+		System.out.println(cromossomo.values());
+
 		return novoCromossomo;
 	}
 
