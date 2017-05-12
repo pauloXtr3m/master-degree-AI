@@ -69,7 +69,7 @@ public class Fitness {
         }catch (EvalError e){
 		    fitness = 0;
         }
-        
+
 
 		return fitness;
 	}
