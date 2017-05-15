@@ -40,7 +40,9 @@ public class Cruzamento extends Operacao {
 			boolean noErrado = true;
 
 			while(noErrado){
-				int escolheNo = (int)Math.random()*cromossomo.size();
+
+				int escolheNo = (int)(Math.random()*cromossomo.size());
+				System.out.println(escolheNo);
 
 				if(cromossomo.get(escolheNo).equals('+')
 						|| cromossomo.get(escolheNo).equals('-')

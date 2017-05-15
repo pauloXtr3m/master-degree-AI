@@ -12,7 +12,6 @@ public class Individuo {
 
 	private TreeMap<Integer,String> cromossomo;
 
-	private Populacao populacao;
 
 	private CopyOnWriteArrayList arvoreString;
 
@@ -31,11 +30,12 @@ public class Individuo {
 	public TreeMap<Integer,String> criarCromossomo(CopyOnWriteArrayList arvoreString) {
 
 		TreeMap<Integer,String> novoCromossomo = new TreeMap<Integer,String>();
-
+		int key = 0;
 		for(int i = 0; i < arvoreString.size(); i++){
 			if(!arvoreString.get(i).equals("(") && !arvoreString.get(i).equals(")")){
 				String no = (String)arvoreString.get(i);
-				novoCromossomo.put(i, no);
+				novoCromossomo.put(key, no);
+				key++;
 			}
 		}
 

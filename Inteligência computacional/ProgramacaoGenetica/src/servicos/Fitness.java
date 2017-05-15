@@ -63,13 +63,13 @@ public class Fitness {
         float fitness = 0;
 		try{
             Interpreter interpreter = new Interpreter();
-            interpreter.eval("((5+6)*(3/2))");
+            interpreter.eval("result = ((5+6)*(3/2))");
 
-            fitness = (float)interpreter.get("result");
-        }catch (EvalError e){
+            fitness = (int)interpreter.get("result");
+
+		}catch (EvalError e){
 		    fitness = 0;
         }
-
 
 		return fitness;
 	}
