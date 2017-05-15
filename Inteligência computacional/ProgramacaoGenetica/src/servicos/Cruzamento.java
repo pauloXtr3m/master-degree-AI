@@ -13,14 +13,14 @@ public class Cruzamento extends Operacao {
 		CopyOnWriteArrayList<Individuo> novosIndividuos = pais;
 		Individuo[] paisDaVez = new Individuo[2];
 
-		for(int i = 0; i < pais.size(); i = i+1){
-			if(i % 2 == 0) {
+		for (int i = 0; i < pais.size(); i = i + 1) {
+			if (i % 2 == 0) {
 				paisDaVez[0] = pais.get(i);
 				paisDaVez[1] = pais.get(i + 1);
 
 				Individuo[] filhos = realizaOperacaoCruzamento(paisDaVez);
 
-				for(Individuo filho: filhos){
+				for (Individuo filho : filhos) {
 					novosIndividuos.add(filho);
 				}
 			}
@@ -33,30 +33,46 @@ public class Cruzamento extends Operacao {
 
 	public Individuo[] realizaOperacaoCruzamento(Individuo[] pais) {
 
-		for(int i = 0; i < pais.length; i++){
+		int[] nosEscolhidos = escolherNos(pais);
+
+		return null;
+	}
+
+	public int[] escolherNos(Individuo[] pais) {
+
+		int[] nosEscolhidos = new int[2];
+
+		for (int i = 0; i < pais.length; i++) {
 
 			TreeMap cromossomo = pais[i].getCromossomo();
+			int contNos = 0;
 
 			boolean noErrado = true;
 
-			while(noErrado){
+			while (noErrado) {
 
-				int escolheNo = (int)(Math.random()*cromossomo.size());
+				int escolheNo = (int) (Math.random() * cromossomo.size());
 				System.out.println(escolheNo);
 
-				if(cromossomo.get(escolheNo).equals('+')
+				if (cromossomo.get(escolheNo).equals('+')
 						|| cromossomo.get(escolheNo).equals('-')
 						|| cromossomo.get(escolheNo).equals('/')
-						|| cromossomo.get(escolheNo).equals('*')){
+						|| cromossomo.get(escolheNo).equals('*')) {
 
-					// falta guardar nó escolhido e sai do while
+					nosEscolhidos[contNos] = escolheNo;
+					contNos++;
 					noErrado = false;
 				}
 			}
 		}
-		return null;
+		return nosEscolhidos;
 	}
 
+	public Individuo[] cruzarIndividuos(Individuo[] pais, int[] nosEscolhidos){
+		
 
+		return new Individuo[];
+	}
 
 }
+
