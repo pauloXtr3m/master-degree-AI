@@ -12,7 +12,7 @@ public class Controlador {
 
 	private int geracoes = 200;
 
-	private int tamPopulacao = 10;
+	private int tamPopulacao = 8;
 
 
 

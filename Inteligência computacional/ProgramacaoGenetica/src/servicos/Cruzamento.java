@@ -2,7 +2,9 @@ package servicos;
 
 import model.Populacao;
 import model.Individuo;
+import sun.reflect.generics.tree.Tree;
 
+import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -14,7 +16,7 @@ public class Cruzamento extends Operacao {
 		Individuo[] paisDaVez = new Individuo[2];
 
 		for (int i = 0; i < pais.size(); i = i + 1) {
-			if (i % 2 == 0) {
+			if ((i == 0)||(i % 2 == 0)) {
 				paisDaVez[0] = pais.get(i);
 				paisDaVez[1] = pais.get(i + 1);
 
@@ -34,6 +36,7 @@ public class Cruzamento extends Operacao {
 	public Individuo[] realizaOperacaoCruzamento(Individuo[] pais) {
 
 		int[] nosEscolhidos = escolherNos(pais);
+        cruzarIndividuos(pais, nosEscolhidos);
 
 		return null;
 	}
@@ -41,23 +44,31 @@ public class Cruzamento extends Operacao {
 	public int[] escolherNos(Individuo[] pais) {
 
 		int[] nosEscolhidos = new int[2];
+        int contNos = 0;
 
 		for (int i = 0; i < pais.length; i++) {
 
 			TreeMap cromossomo = pais[i].getCromossomo();
-			int contNos = 0;
+
 
 			boolean noErrado = true;
 
 			while (noErrado) {
+                int escolheNo = 0;
 
-				int escolheNo = (int) (Math.random() * cromossomo.size());
-				System.out.println(escolheNo);
+			    while(escolheNo == 0 ){
+			        escolheNo = (int) (Math.random() * cromossomo.size());
+                }
+                System.out.println(escolheNo);
 
 				if (cromossomo.get(escolheNo).equals('+')
 						|| cromossomo.get(escolheNo).equals('-')
 						|| cromossomo.get(escolheNo).equals('/')
-						|| cromossomo.get(escolheNo).equals('*')) {
+						|| cromossomo.get(escolheNo).equals('*')
+                        || cromossomo.get(escolheNo).equals("Math.pow")
+                        || cromossomo.get(escolheNo).equals("Math.sqrt")
+                        || cromossomo.get(escolheNo).equals("Math.cos")
+                        || cromossomo.get(escolheNo).equals("Math.sin")) {
 
 					nosEscolhidos[contNos] = escolheNo;
 					contNos++;
@@ -69,9 +80,14 @@ public class Cruzamento extends Operacao {
 	}
 
 	public Individuo[] cruzarIndividuos(Individuo[] pais, int[] nosEscolhidos){
-		
+		SortedMap[] subTrees = new SortedMap[pais.length];
 
-		return new Individuo[];
+	    for(int i = 0; i < pais.length; i++){
+            TreeMap cromossomo = pais[i].getCromossomo();
+            subTrees[i] = cromossomo.subMap(nosEscolhidos[i], cromossomo.size()-1);
+        }
+
+		return new Individuo[10];
 	}
 
 }

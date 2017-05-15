@@ -69,10 +69,10 @@ public class CromossomoGenerator {
         funcoes[1] = "-";
         funcoes[2] = "/";
         funcoes[3] = "*";
-        funcoes[4] = "^";
-        funcoes[5] = "sin";
-        funcoes[6] = "cos";
-        funcoes[7] = "sqrt";
+        funcoes[4] = "Math.pow";
+        funcoes[5] = "Math.sin";
+        funcoes[6] = "Math.cos";
+        funcoes[7] = "Math.sqrt";
     }
     private void inicializarNext(){
         next = new String[3];
