@@ -57,13 +57,15 @@ public class Fitness {
 		TreeMap cromossomo = individuo.getCromossomo();
 
 		String expression = CromossomoGenerator.parseExpression(cromossomo);
+		String preExpression = "result = ";
 
+		expression = preExpression + expression;
 
 
         float fitness = 0;
 		try{
             Interpreter interpreter = new Interpreter();
-            interpreter.eval("result = ((5+6)*(3/2))");
+            interpreter.eval(expression);
 
             fitness = (int)interpreter.get("result");
 

@@ -1,5 +1,8 @@
 package servicos;
 
+import com.sun.org.apache.xpath.internal.operations.Number;
+import jdk.nashorn.internal.runtime.NumberToString;
+
 import java.util.Stack;
 import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -9,6 +12,7 @@ public class CromossomoGenerator {
     private static String[] all;
     private static String[] funcoes;
     private static String[] next;
+    private static final String SIN = "Math.sin", COS = "Math.cos", SQRT = "Math.sqrt", POW = "Math.pow";
 
 
 
@@ -24,11 +28,11 @@ public class CromossomoGenerator {
 
         if(maxProfundidade>1){
                 formula.add("(");
-                String nextFuncao = randomNext(this.funcoes);
+                String nextFuncao = randomNext(funcoes);
 
                 formula.add(nextFuncao);
 
-                if(nextFuncao.equals("sin")|| nextFuncao.equals("cos")||nextFuncao.equals("sqrt")){
+                if(nextFuncao.equals(SIN)|| nextFuncao.equals(COS)||nextFuncao.equals(SQRT)){
                     formula.addAll(randomFormula(maxProfundidade-1));
 
 
@@ -68,9 +72,9 @@ public class CromossomoGenerator {
         funcoes[2] = "/";
         funcoes[3] = "*";
         funcoes[4] = "Math.pow";
-        funcoes[5] = "Math.sin";
-        funcoes[6] = "Math.cos";
-        funcoes[7] = "Math.sqrt";
+        funcoes[5] = SIN;
+        funcoes[6] = COS;
+        funcoes[7] = SQRT;
     }
     private void inicializarNext(){
         next = new String[3];
@@ -96,35 +100,97 @@ public class CromossomoGenerator {
 
 
             if(isFuncao(no)){
+
                 expression.append("(");
                 pilha.add(no);
                 contParenteses++;
-            }else{
+
+            } else if(isFuncaoMath(no)){
+                expression.append(no);
+                expression.append("(");
+                contParenteses++;
+                if(no.equals(POW)){
+                    no = (String)cromossomo.get(i + 1);
+                    if(isTerminal(no)){
+                        expression.append(no);
+                        i = i + 1;
+                        expression.append(",");
+                        no = (String)cromossomo.get(i + 1);
+
+                        if(isTerminal(no)){
+                            i = i + 1;
+                            expression = fecharExpressao(no, expression);
+                            if(!pilha.isEmpty()){
+                                expression.append(pilha.pop());
+                            }
+                        }
+                    } else{
+                        pilha.add(",");
+                    }
+                }else{
+
+                    no = (String)cromossomo.get(i + 1);
+                    if(isTerminal(no)){
+                        i = i + 1;
+                        expression = fecharExpressao(no, expression);
+                        if(!pilha.isEmpty()){
+                            expression.append(pilha.pop());
+                        }
+                    }
+                }
+
+            } else{
                 expression.append(no);
                 expression.append(pilha.pop());
                 no = (String)cromossomo.get(i + 1);
                 expression.append(no);
                 expression.append(")");
-
+                contParenteses--;
                 if(!pilha.isEmpty()){
                     expression.append(pilha.pop());
                 }
 
+
                 i = i + 1;
+
+            }
+
+            if(i == cromossomo.size()-1){
+                if(contParenteses>0){
+                    expression.append(")");
+                    contParenteses--;
+                }
             }
         }
         return expression.toString();
     }
 
     public static boolean isFuncao(String str){
-        if (str.equals('+')
-                || str.equals('-')
-                || str.equals('/')
-                || str.equals('*')
-                || str.equals("Math.pow")
-                || str.equals("Math.sqrt")
-                || str.equals("Math.cos")
-                || str.equals("Math.sin")) {
+        if (str.equals("+")
+                || str.equals("-")
+                || str.equals("/")
+                || str.equals("*")){
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+    public static boolean isFuncaoMath(String str){
+        if (str.equals(SQRT)
+                || str.equals(COS)
+                || str.equals(SIN)
+                || str.equals(POW) ) {
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+    public static boolean isTerminal(String str){
+        if (str.equals("a")
+                || str.equals("b")
+                || isNumeric(str)){
             return true;
 
         }else{
@@ -132,10 +198,30 @@ public class CromossomoGenerator {
         }
     }
 
+    public static boolean isNumeric(String str)
+    {
+        try
+        {
+            double d = Double.parseDouble(str);
+        }
+        catch(NumberFormatException nfe)
+        {
+            return false;
+        }
+        return true;
+    }
+
     public static String funcaoRand(){
         int rand = (int) (Math.random()*funcoes.length);
 
         return funcoes[rand];
+    }
+
+    public static StringBuilder fecharExpressao(String no, StringBuilder expression){
+
+        expression.append(no);
+        expression.append(")");
+        return expression;
     }
 
 }
