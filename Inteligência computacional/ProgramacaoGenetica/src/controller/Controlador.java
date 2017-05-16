@@ -26,22 +26,29 @@ public class Controlador {
 		Operacao operacao;
 		while(++i < geracoes){
 
-			int rand = (int)(Math.random()*100);
+			int escolhaOperacao = (int)Math.round((Math.random()*1));
+			int probabOperacao = (int)(Math.random()*100);
 
-			if((rand > 0) && (rand < 98)){
-				//CRUZAMENTO
+			switch (escolhaOperacao){
+				case 0:
+					if(probabOperacao <= 98){
+						Fitness fitness = new Fitness();
+						Populacao melhoresPais = fitness.retornaPais(this.populacao);
+						operacao = new Cruzamento();
+						this.populacao = operacao.realizaOperacao(melhoresPais);
+					}
+					break;
+				case 1:
 
-				Fitness fitness = new Fitness();
-				Populacao melhoresPais = fitness.retornaPais(this.populacao);
-				operacao = new Cruzamento();
-				this.populacao = operacao.realizaOperacao(melhoresPais);
+					if(probabOperacao > 98){
+						operacao = new Mutacao();
+						this.populacao = operacao.realizaOperacao(this.populacao);
+					}
 
-			} else {
-				//MUTAÇÃO
-
-				operacao = new Mutacao();
-				this.populacao = operacao.realizaOperacao(this.populacao);
+					break;
 			}
+
+
 		}
 	}
 

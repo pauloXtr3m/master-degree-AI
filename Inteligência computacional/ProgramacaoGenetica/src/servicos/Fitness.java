@@ -55,11 +55,11 @@ public class Fitness {
 
 	public Float calculaFitnessIndividuo(Individuo individuo) {
 		TreeMap cromossomo = individuo.getCromossomo();
-		String cromossomoStr = cromossomo.toString();
 
-		//falta formatar expressao para float
+		String expression = CromossomoGenerator.parseExpression(cromossomo);
 
-		//float fitness = Float.parseFloat("2+5");
+
+
         float fitness = 0;
 		try{
             Interpreter interpreter = new Interpreter();

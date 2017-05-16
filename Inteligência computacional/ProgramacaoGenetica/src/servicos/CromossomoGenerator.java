@@ -1,12 +1,14 @@
 package servicos;
 
+import java.util.Stack;
+import java.util.TreeMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class CromossomoGenerator {
-    String[] all;
-    String[] funcoes;
-    String[] next;
+    private static String[] all;
+    private static String[] funcoes;
+    private static String[] next;
 
 
 
@@ -41,10 +43,6 @@ public class CromossomoGenerator {
             formula.add(randomNext(this.next));
         }
 
-        for(String str: formula){
-            System.out.print(formula);
-        }
-        System.out.println("\nFinalizou\n");
 
         return formula;
     }
@@ -88,5 +86,56 @@ public class CromossomoGenerator {
         return randVetor[rand];
     }
 
+    public static String parseExpression(TreeMap cromossomo){
+
+        StringBuilder expression = new StringBuilder().append("");
+        int contParenteses = 0;
+        Stack pilha = new Stack();
+        for(int i = 0; i < cromossomo.size();i++){
+            String no = (String)cromossomo.get(i);
+
+
+            if(isFuncao(no)){
+                expression.append("(");
+                pilha.add(no);
+                contParenteses++;
+            }else{
+                expression.append(no);
+                expression.append(pilha.pop());
+                no = (String)cromossomo.get(i + 1);
+                expression.append(no);
+                expression.append(")");
+
+                if(!pilha.isEmpty()){
+                    expression.append(pilha.pop());
+                }
+
+                i = i + 1;
+            }
+        }
+        return expression.toString();
+    }
+
+    public static boolean isFuncao(String str){
+        if (str.equals('+')
+                || str.equals('-')
+                || str.equals('/')
+                || str.equals('*')
+                || str.equals("Math.pow")
+                || str.equals("Math.sqrt")
+                || str.equals("Math.cos")
+                || str.equals("Math.sin")) {
+            return true;
+
+        }else{
+            return false;
+        }
+    }
+
+    public static String funcaoRand(){
+        int rand = (int) (Math.random()*funcoes.length);
+
+        return funcoes[rand];
+    }
 
 }

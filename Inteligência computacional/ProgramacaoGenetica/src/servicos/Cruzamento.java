@@ -58,14 +58,9 @@ public class Cruzamento extends Operacao {
 			        escolheNo = (int) (Math.random() * cromossomo.size());
                 }
 
-                if (cromossomo.get(escolheNo).equals('+')
-						|| cromossomo.get(escolheNo).equals('-')
-						|| cromossomo.get(escolheNo).equals('/')
-						|| cromossomo.get(escolheNo).equals('*')
-                        || cromossomo.get(escolheNo).equals("Math.pow")
-                        || cromossomo.get(escolheNo).equals("Math.sqrt")
-                        || cromossomo.get(escolheNo).equals("Math.cos")
-                        || cromossomo.get(escolheNo).equals("Math.sin")) {
+                String provavelFuncao = (String)cromossomo.get(escolheNo);
+
+                if (CromossomoGenerator.isFuncao(provavelFuncao)){
 
 					nosEscolhidos[contNos] = escolheNo;
 					contNos++;
@@ -140,6 +135,7 @@ public class Cruzamento extends Operacao {
         }
         return novoCromosso;
     }
+
 
 }
 
