@@ -10,7 +10,7 @@ public class Controlador {
 
 	public static final int PROFUNDIDADE = 3;
 
-	private int geracoes = 200;
+	private int geracoes = 20;
 
 	private int tamPopulacao = 8;
 
@@ -48,7 +48,7 @@ public class Controlador {
 					break;
 			}
 
-
+			System.out.println("Geração: "+ i);
 		}
 	}
 

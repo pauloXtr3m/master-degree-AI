@@ -60,7 +60,8 @@ public class Cruzamento extends Operacao {
 
                 String provavelFuncao = (String)cromossomo.get(escolheNo);
 
-                if (CromossomoGenerator.isFuncao(provavelFuncao)){
+                if (CromossomoGenerator.isFuncao(provavelFuncao)
+                        ||CromossomoGenerator.isFuncaoMath(provavelFuncao)){
 
 					nosEscolhidos[contNos] = escolheNo;
 					contNos++;

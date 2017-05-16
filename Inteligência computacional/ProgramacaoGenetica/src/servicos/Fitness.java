@@ -25,14 +25,19 @@ public class Fitness {
 
 			double fitnessIndividuo = calculaFitnessIndividuo(individuo);
 
+
+
 			for(int j = 0; j < fitnessPais.length; j++){
+
 				if(fitnessPais[j]<fitnessIndividuo){
-					fitnessPais[j] = fitnessIndividuo;
-					pais[j] = individuo;
+					int menorPosicao = menorPosicao(fitnessPais);
+					fitnessPais[menorPosicao] = fitnessIndividuo;
+					pais[menorPosicao] = individuo;
 					break;
 				}
 			}
 		}
+
 
 		for(Individuo i: individuos){
 			individuos.remove(i);
@@ -53,7 +58,7 @@ public class Fitness {
 		}
 	}
 
-	public Double calculaFitnessIndividuo(Individuo individuo) {
+	private Double calculaFitnessIndividuo(Individuo individuo) {
 		TreeMap cromossomo = individuo.getCromossomo();
 
 		String expression = CromossomoGenerator.parseExpression(cromossomo);
@@ -74,6 +79,19 @@ public class Fitness {
         }
 
 		return fitness;
+	}
+
+	private int menorPosicao(double[] vetor){
+		int menorPosicao = 0;
+		double menorValor = vetor[0];
+
+		for(int i = 0 ; i < vetor.length; i++){
+			if(menorValor > vetor[i]){
+				menorPosicao = i;
+				menorValor = vetor[i];
+			}
+		}
+		return menorPosicao;
 	}
 
 }
