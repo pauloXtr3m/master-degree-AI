@@ -14,21 +14,21 @@ public class Fitness {
 
 	public Populacao retornaPais(Populacao populacao){
 		CopyOnWriteArrayList<Individuo> individuos = populacao.getIndividuos();
-		float[] fitnessPais = new float[individuos.size()/2];
+		double[] fitnessPais = new double[individuos.size()/2];
 		Individuo[] pais = new Individuo[individuos.size()/2];
 
 		for(int i = 0; i < fitnessPais.length; i++){
 			fitnessPais[i] = 0;
 		}
 
-		for(Individuo i: individuos){
+		for(Individuo individuo: individuos){
 
-			float fitnessIndividuo = calculaFitnessIndividuo(i);
+			double fitnessIndividuo = calculaFitnessIndividuo(individuo);
 
 			for(int j = 0; j < fitnessPais.length; j++){
 				if(fitnessPais[j]<fitnessIndividuo){
 					fitnessPais[j] = fitnessIndividuo;
-					pais[j] = i;
+					pais[j] = individuo;
 					break;
 				}
 			}
@@ -53,24 +53,24 @@ public class Fitness {
 		}
 	}
 
-	public Float calculaFitnessIndividuo(Individuo individuo) {
+	public Double calculaFitnessIndividuo(Individuo individuo) {
 		TreeMap cromossomo = individuo.getCromossomo();
 
 		String expression = CromossomoGenerator.parseExpression(cromossomo);
-		String preExpression = "result = ";
+		String preExpression = "fitness = ";
 
 		expression = preExpression + expression;
 
-
-        float fitness = 0;
+		Interpreter interpreter = new Interpreter();
+        Double fitness = 0.00;
 		try{
-            Interpreter interpreter = new Interpreter();
+			interpreter.set("a",(Math.random()*20));
+			interpreter.set("b", (Math.random()*20));
             interpreter.eval(expression);
-
-            fitness = (int)interpreter.get("result");
+            fitness = (Double)interpreter.get("fitness");
 
 		}catch (EvalError e){
-		    fitness = 0;
+		    fitness = 0.00;
         }
 
 		return fitness;
